@@ -60,6 +60,7 @@
 \usepackage{color}				% Controle das cores
 \usepackage{graphicx}			% Inclusão de gráficos
 \usepackage{microtype} 			% para melhorias de justificação
+\usepackage{datetime}           % Tempo e hora.
 % ---
 		
 % ---
@@ -92,6 +93,9 @@
 	\fi}%
 % ---
 
+
+
+
 % ---
 % Informações de dados para CAPA e FOLHA DE ROSTO
 % ---
@@ -100,8 +104,9 @@
 César
 Araujo\thanks{laurocesar@laurocesar.com}}
 \local{Brasil}
-\data{2015, v-1.9.5}
+\data{\today}
 % ---
+
 
 % ---
 % Configurações de aparência do PDF final
@@ -142,6 +147,34 @@ Araujo\thanks{laurocesar@laurocesar.com}}
 \checkandfixthelayout
 % ---
 
+%%criar um novo estilo de cabeçalhos e rodapés
+\makepagestyle{meuestilo}
+
+%%cabeçalhos
+\makeevenhead{meuestilo}
+{Experimento X} %%pagina par
+{}
+{Página \thepage\ de \thelastpage}
+\makeoddhead{meuestilo} %%pagina ímpar ou com oneside
+{Experimento X}
+{}
+{Página \thepage\ de \thelastpage}
+\makeheadrule{meuestilo}{\textwidth}{\normalrulethickness} %linha
+\makefootrule{meuestilo}{\textwidth}{\normalrulethickness}{1pt}
+
+%% rodapé
+\makeevenfoot{meuestilo} %%pagina par
+{\today}
+{}
+{\currenttime h}
+\makeoddfoot{meuestilo} %%pagina ímpar ou com oneside
+{\today}
+{}
+{\currenttime h}
+
+
+%\currenttime h
+
 % --- 
 % Espaçamentos entre linhas e parágrafos 
 % --- 
@@ -167,6 +200,8 @@ Araujo\thanks{laurocesar@laurocesar.com}}
 % Retira espaço extra obsoleto entre as frases.
 \frenchspacing 
 
+%\pagestyle{meuestilo}
+ 
 % ----------------------------------------------------------
 % ELEMENTOS PRÉ-TEXTUAIS
 % ----------------------------------------------------------
@@ -181,21 +216,8 @@ Araujo\thanks{laurocesar@laurocesar.com}}
 % página de titulo
 \maketitle
 
-% resumo em português
-\begin{resumoumacoluna}
- Conforme a ABNT NBR 6022:2003, o resumo é elemento obrigatório, constituído de
- uma sequência de frases concisas e objetivas e não de uma simples enumeração
- de tópicos, não ultrapassando 250 palavras, seguido, logo abaixo, das palavras
- representativas do conteúdo do trabalho, isto é, palavras-chave e/ou
- descritores, conforme a NBR 6028. (\ldots) As palavras-chave devem figurar logo
- abaixo do resumo, antecedidas da expressão Palavras-chave:, separadas entre si por
- ponto e finalizadas também por ponto.
- 
- \vspace{\onelineskip}
- 
- \noindent
- \textbf{Palavras-chave}: latex. abntex. editoração de texto.
-\end{resumoumacoluna}
+
+
 
 % ]  				% FIM DE ARTIGO EM DUAS COLUNAS
 % ---
@@ -204,6 +226,7 @@ Araujo\thanks{laurocesar@laurocesar.com}}
 % ELEMENTOS TEXTUAIS
 % ----------------------------------------------------------
 \textual
+\pagestyle{meuestilo}
 
 % ----------------------------------------------------------
 % Introdução
@@ -411,28 +434,11 @@ referência completa das macros e ambientes disponíveis.
 
 % \twocolumn[    		% INICIO DE ARTIGO EM DUAS COLUNAS
 
-% titulo em inglês
-\titulo{Canonical academic article model with \abnTeX}
-\emptythanks
-\maketitle
 
-% resumo em português
-\renewcommand{\resumoname}{Abstract}
-\begin{resumoumacoluna}
- \begin{otherlanguage*}{english}
-   According to ABNT NBR 6022:2003, an abstract in foreign language is a back
-   matter mandatory element.
-
-   \vspace{\onelineskip}
- 
-   \noindent
-   \textbf{Keywords}: latex. abntex.
- \end{otherlanguage*}  
-\end{resumoumacoluna}
 
 % ]  				% FIM DE ARTIGO EM DUAS COLUNAS
 % ---
-
+\newpage
 % ----------------------------------------------------------
 % Referências bibliográficas
 % ----------------------------------------------------------
@@ -451,6 +457,7 @@ referência completa das macros e ambientes disponíveis.
 % Apêndices
 % ----------------------------------------------------------
 
+\newpage
 % ---
 % Inicia os apêndices
 % ---
@@ -465,6 +472,7 @@ ac pretium ante justo a nulla curabitur tristique arcu eu metus}
 \end{apendicesenv}
 % ---
 
+\newpage
 % ----------------------------------------------------------
 % Anexos
 % ----------------------------------------------------------
