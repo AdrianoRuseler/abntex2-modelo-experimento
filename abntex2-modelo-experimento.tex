@@ -42,7 +42,7 @@
 	english,			% idioma adicional para hifenização
 	brazil,				% o último idioma é o principal do documento
 	sumario=tradicional
-	]{abntex2}
+	]{abntex2-inep-ufsc-bancada}
 
 
 % ---
@@ -76,6 +76,31 @@
 \usepackage[alf]{abntex2cite}	% Citações padrão ABNT
 % ---
 
+\usepackage{listings}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+	language=Matlab,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=none,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	keepspaces=true,
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3,
+	texcl=true
+}
+
 % ---
 % Configurações do pacote backref
 % Usado sem a opção hyperpageref de backref
@@ -85,26 +110,32 @@
 % Define os textos da citação
 \renewcommand*{\backrefalt}[4]{
 	\ifcase #1 %
-		Nenhuma citação no texto.%
+	Nenhuma citação no texto.%
 	\or
-		Citado na página #2.%
+	Citado na página #2.%
 	\else
-		Citado #1 vezes nas páginas #2.%
+	Citado #1 vezes nas páginas #2.%
 	\fi}%
 % ---
-
-
 
 
 % ---
 % Informações de dados para CAPA e FOLHA DE ROSTO
 % ---
-\titulo{Modelo Canônico de\\ Artigo científico com \abnTeX}
-\autor{Equipe \abnTeX\thanks{\url{http://www.abntex.net.br/}} \and Lauro
-César
-Araujo\thanks{laurocesar@laurocesar.com}}
+\titulo{Modelo Canônico de relatório de bancada com \abnTeX}
+\autor{Nome do Autor}
 \local{Brasil}
 \data{\today}
+\universidade{UNIVERSIDADE FEDERAL DE SANTA CATARINA}
+\programa{Pós--graduação em Engenharia Elétrica}
+\laboratorio{INEP -- Instituto de Eletrônica de Potência}
+\tipotrabalho{Relatório de Experimento}
+
+\matricula{20150713}
+\orientador{ Nome do Orientador}
+\coorientador{ Nome do Coorientador}
+\codexp{Exp03} % Código do experimento
+
 % ---
 
 
@@ -156,7 +187,7 @@ Araujo\thanks{laurocesar@laurocesar.com}}
 {}
 {Página \thepage\ de \thelastpage}
 \makeoddhead{meuestilo} %%pagina ímpar ou com oneside
-{Experimento X}
+{\imprimirtipotrabalho }
 {}
 {Página \thepage\ de \thelastpage}
 \makeheadrule{meuestilo}{\textwidth}{\normalrulethickness} %linha
@@ -172,8 +203,6 @@ Araujo\thanks{laurocesar@laurocesar.com}}
 {}
 {\currenttime h}
 
-
-%\currenttime h
 
 % --- 
 % Espaçamentos entre linhas e parágrafos 
@@ -214,7 +243,8 @@ Araujo\thanks{laurocesar@laurocesar.com}}
 %
 %---
 % página de titulo
-\maketitle
+
+\imprimircabecalho
 
 
 
@@ -268,7 +298,26 @@ exemplos e informações adicionais de uso de \abnTeX\ e de \LaTeX.
 % ----------------------------------------------------------
 % Seção de explicações
 % ----------------------------------------------------------
+\newpage
 \section{Exemplos de comandos}
+
+
+\subsection{Inserindo código fonte}
+
+\begin{lstlisting}[caption={Leitura dos dados simulados e conversão para estados topológicos.},label={lst:leituradadossim}]
+% Pré definições iniciais
+nsub=3;  % Numero de Sunmódulos
+nbits=2*nsub; % Numero de bits necessários para representar os estados
+nlevels=2*nsub+1; % Numero total de níveis
+
+% Leitura dos pontos gerados por simulação
+time=data(1,:)'; % extrai vetor de tempo
+PWM=logical(data(2:end,:))'; % Conversão dos pulsos PWM para estados lógicos
+
+% Cria vetor de string binário com os estados correspondentes
+binstates=num2str([PWM(:,1) PWM(:,3) PWM(:,5) PWM(:,7) PWM(:,9) PWM(:,11)]);
+state=fi(bin2dec(binstates),0,nbits,0); % Objeto numérico de ponto-fixo
+\end{lstlisting}
 
 \subsection{Margens}
 
@@ -427,6 +476,7 @@ referência completa das macros e ambientes disponíveis.
 % ELEMENTOS PÓS-TEXTUAIS
 % ----------------------------------------------------------
 \postextual
+\pagestyle{empty}
 
 % ---
 % Título e resumo em língua estrangeira
@@ -438,6 +488,7 @@ referência completa das macros e ambientes disponíveis.
 
 % ]  				% FIM DE ARTIGO EM DUAS COLUNAS
 % ---
+
 \newpage
 % ----------------------------------------------------------
 % Referências bibliográficas
