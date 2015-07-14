@@ -61,6 +61,7 @@
 \usepackage{graphicx}			% Inclusão de gráficos
 \usepackage{microtype} 			% para melhorias de justificação
 \usepackage{datetime}           % Tempo e hora.
+\usepackage{epstopdf}
 % ---
 		
 % ---
@@ -77,6 +78,15 @@
 % ---
 
 \usepackage{listings}
+\usepackage{amsmath}		
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{booktabs} % Para Tabelas
+\usepackage{subfig}  % permite ter subfiguras
+\usepackage{float}
+\usepackage{tikz,pgfplots}
+\usepackage{pdfpages}
+\usepackage{longtable}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -319,6 +329,69 @@ binstates=num2str([PWM(:,1) PWM(:,3) PWM(:,5) PWM(:,7) PWM(:,9) PWM(:,11)]);
 state=fi(bin2dec(binstates),0,nbits,0); % Objeto numérico de ponto-fixo
 \end{lstlisting}
 
+\subsection{Figuras}
+
+
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=1\linewidth]{figs/InversorTransformador}
+	\caption{Conexão utilizada ao se empregar um transformador.}
+	\label{fig:InversorTransformador}
+\end{figure}
+
+
+\subsection{Apresentando aquisições}
+
+
+\begin{figure}[!h]
+	\centering
+	\begin{minipage}[t]{0.45\textwidth}	\centering
+		\includegraphics[width=1\linewidth]{aqs/0002}
+		\caption{Tensões nos capacitores de barramento e correntes de saída dos inversores da fase B ($W_{b1}$, $W_{b2}$ e $W_{b3}$) e da fase A ($W_{a1}$, $W_{a2}$ e $W_{a3}$).}
+		\label{fig:0002}
+	\end{minipage}
+	\quad
+	\begin{minipage}[t]{0.45\textwidth} \centering
+		\includegraphics[width=1\linewidth]{aqs/TTZVSPWM0015}
+		\caption{Tensões nos capacitores de barramento e correntes de saída dos inversores da fase C ($W_{c1}$, $W_{c2}$ e $W_{c3}$).}
+		\label{fig:TTZVSPWM0015}
+	\end{minipage}	
+\end{figure}
+
+
+\begin{figure}[!h]
+	\centering
+	\begin{minipage}[t]{0.45\textwidth}	\centering
+		\includegraphics[width=1\linewidth]{aqs/tek0003}
+		\caption{Tempo morto medido no braço 1 do inversor A3}
+		\label{fig:tek0003}
+	\end{minipage}
+	\quad
+	\begin{minipage}[t]{0.45\textwidth} 	\centering
+		\includegraphics[width=1\linewidth]{aqs/tek0004}
+		\caption{Tempo morto medido no braço 2 do inversor A3}
+		\label{fig:tek0004}
+	\end{minipage}	
+\end{figure}
+
+
+\begin{figure}[!h]
+	\centering
+	\begin{minipage}[t]{0.45\textwidth}	\centering
+		\includegraphics[width=1\linewidth]{aqs/tek0001}
+		\caption{Correntes na fase C com um degrau de carga.}
+		\label{fig:currenttek0001}
+	\end{minipage}
+	\quad
+	\begin{minipage}[t]{0.45\textwidth} 	\centering
+		\includegraphics[width=1\linewidth]{aqs/tek0001FFT}
+		\caption{Espectro das correntes na fase C com um degrau de carga.}
+		\label{fig:currentFFTtek0001}
+	\end{minipage}	
+\end{figure}
+
+
 \subsection{Margens}
 
 A norma ABNT NBR 6022:2003 não estabelece uma margem específica a ser utilizada
@@ -476,7 +549,7 @@ referência completa das macros e ambientes disponíveis.
 % ELEMENTOS PÓS-TEXTUAIS
 % ----------------------------------------------------------
 \postextual
-\pagestyle{empty}
+\pagestyle{plain}
 
 % ---
 % Título e resumo em língua estrangeira
@@ -534,12 +607,9 @@ ac pretium ante justo a nulla curabitur tristique arcu eu metus}
 %\anexos
 \begin{anexosenv}
 
-% ---
-\chapter{Cras non urna sed feugiat cum sociis natoque penatibus et magnis dis
-parturient montes nascetur ridiculus mus}
-% ---
+\chapter{Datasheet para o conjunto inversor monofásico SPCIM 450-60-20}
 
-\lipsum[31]
+\includepdf[pages=-]{docs/SPCIM450-60-20.pdf}
 
 \end{anexosenv}
 
